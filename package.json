@@ -1,0 +1,26 @@
+{
+  "name": "mustacheme",
+  "version": "1.0.0",
+  "description": "mustache as a service",
+  "main": "app.js",
+  "repository": "https://github.com/fribmendes/mustacheme",
+  "author": "Fernando Mendes <fernando@mendes.codes>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint *.js lib/**/*.js spec/**/*.js",
+    "start": "node ."
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "multer": "^1.3.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.9.0",
+    "prettier": "^1.11.1"
+  }
+}

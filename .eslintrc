@@ -1,0 +1,20 @@
+{
+  "plugins": [],
+  "parser": "babel-eslint",
+  "extends": ["airbnb-base", "prettier"],
+  "rules": {
+    "consistent-return": 0,
+    "no-debugger": 0,
+    "import/no-extraneous-dependencies": 0,
+    "class-methods-use-this": 0,
+    "prefer-promise-reject-errors": 0,
+    "import/no-unresolved": [2, { ignore: ['^common'] }]
+  },
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "settings": {
+    "import/core-modules": ["common"],
+  }
+}

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const helmet = require('helmet');
 const multer = require('multer');
 const path = require('path');
@@ -15,6 +16,7 @@ const PORT = process.env.PORT || 3000;
 const RM_DELAY = process.env.RM_DELAY || 5000;
 
 app.use(helmet());
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

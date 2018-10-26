@@ -2,9 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
-const { exec } = require('child_process');
+
+const img = require('./lib/img');
 
 const upload = multer({
   dest: 'uploads/',
@@ -13,7 +12,6 @@ const upload = multer({
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-const RM_DELAY = process.env.RM_DELAY || 5000;
 
 app.use(helmet());
 app.use(cors());
@@ -25,34 +23,23 @@ const getMimeType = ext =>
     '.jpeg': 'image/jpeg',
     '.jpg': 'image/jpeg',
     '.png': 'image/png',
+    '.gif': 'image/gif',
   }[ext] || 'application/octet-stream');
 
-const delayedDeleteFiles = (file, ext) => {
-  setTimeout(() => {
-    fs.unlink(file, () => {});
-    fs.unlink(file + ext, () => {});
-  }, RM_DELAY);
-};
-
-const sendImg = (res, file, { output, ext }) => err => {
+const sendImg = (res, output, ext, err) => {
   if (err) {
     console.error(err);
-    res.sendStatus(500);
+    res.sendStatus(400);
   } else {
     res.set('Content-Type', getMimeType(ext));
     res.sendFile(output, { root: __dirname });
-    delayedDeleteFiles(file.path, ext);
   }
 };
 
 app.post('/', upload.single('image'), (req, res) => {
-  const ext = path.extname(req.file.originalname);
-  const output = req.file.path + ext;
-
-  exec(
-    `python3 ./lib/mustacheme.py ${req.file.path} -o ${output}`,
-    sendImg(res, req.file, { output, ext })
-  );
+  img.convert(req.file, (output, ext, err) => {
+    sendImg(res, output, ext, err);
+  });
 });
 
 const start = () => {
@@ -65,9 +52,7 @@ const start = () => {
   };
 
   const handleError = err => {
-    if (err) {
-      console.error(err);
-    }
+    if (err) console.error(err);
 
     process.exit(1);
   };

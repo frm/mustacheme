@@ -5,6 +5,8 @@ import base64
 from PIL import Image, ImageDraw
 from sys import argv
 
+print("asdf")
+
 def calc_mustache_dimensions(leftmost, rightmost):
     new_width = int((rightmost[0] - leftmost[0]) * 1.25)
 

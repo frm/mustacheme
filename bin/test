@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+source ./bin/functions
+
+if [ ! -d out ]; then
+  mkdir out
+fi
+
+curl -F 'image=@data/test.png' localhost:3000 > out/test.png
+
+if [[ "$(uname)" == "Darwin" ]]; then
+  open out/test.png
+else
+  pp_info "test" "done! check out/test.png"
+fi

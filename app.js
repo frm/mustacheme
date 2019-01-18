@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const multer = require('multer');
 
 const img = require('./lib/img');
+const git = require('./lib/git');
 
 const upload = multer({
   dest: 'uploads/',
@@ -40,6 +41,13 @@ app.post('/', upload.single('image'), (req, res) => {
   img.convert(req.file, (output, ext, err) => {
     sendImg(res, output, ext, err);
   });
+});
+
+app.get('/', (_req, res) => {
+  res
+    .status(200)
+    .set('Content-Type', 'text/plain')
+    .send(git.currentGitRev());
 });
 
 const start = () => {

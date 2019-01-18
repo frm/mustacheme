@@ -5,19 +5,7 @@ set -e
 source ./bin/functions
 
 pp_info "setup" "Installing required languages"
-if [ -x "$(command -v asdf)" ]; then
-  set +e
-  asdf plugin-add nodejs 2>/dev/null
-  asdf plugin-add python 2>/dev/null
-
-  bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring 2>/dev/null
-  set -e
-
-  asdf install
-
-  pp_info "setup" "Attempting to upgrade pip"
-  pip install --upgrade pip
-else
+if not_installed "asdf"; then
   pp_error "setup" "
     We are using asdf (https://github.com/asdf-vm/asdf) to manage tool
     dependencies, since it was not found on your system we cannot ensure that you
@@ -28,10 +16,29 @@ else
   exit 1
 fi
 
+set +e
+asdf plugin-add nodejs 2>/dev/null
+asdf plugin-add python 2>/dev/null
+
+bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring 2>/dev/null
+set -e
+
+asdf install
+
+pp_info "setup" "Attempting to upgrade pip"
+pip install --upgrade pip
+
+pp_info "setup" "Ensuring yarn is installed"
+if not_installed "yarn"; then
+  curl -o- -L https://yarnpkg.com/install.sh | bash
+else
+  echo "All done!"
+fi
+
 pp_info "setup" "Installing python requirements"
 pip install -r requirements.txt
 
 pp_info "setup" "Installing node requirements"
-npm install
+yarn install
 
 pp_success "setup" "You're good to go! Run bin/server to get the development server running."

@@ -20,3 +20,7 @@ pp_success() {
 pp_error() {
   pp $RED "$1" "$2"
 }
+
+not_installed() {
+  [ ! -x "$(command -v "$@")" ]
+}

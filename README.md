@@ -33,9 +33,9 @@ pictures of them with mustaches.
 ## Installation
 
 1. Follow [these instructions](https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf).
-2. `git clone https://github.com/fribmendes/mustacheme`
-3. `cd mustacheme && pip3 install -r requirements.txt`
-4. `npm install` if you want to run the web app
+2. `git clone https://github.com/justmendes/mustacheme`
+3. `bin/setup`
+4. `bin/server` if you want to run the web app
 
 ## Usage
 
@@ -66,7 +66,7 @@ mustache.png`
 ## I WANT TO HELP MAKE MORE MUSTACHES
 
 I like your enthusiasm. Open a [pull
-request](https://github.com/fribmendes/mustacheme/pulls). Some things to do:
+request](https://github.com/justmendes/mustacheme/pulls). Some things to do:
 
 * [ ] add moooooore mustaches (python/javascript)
 * [ ] add mustaches to gifs (python)
@@ -75,5 +75,5 @@ request](https://github.com/fribmendes/mustacheme/pulls). Some things to do:
 * [ ] add a web interface (javascript/html)
 
 Feel free to make suggestions as well and to [open an
-issue](https://github.com/fribmendes/mustacheme/issues/new) if you found some of
+issue](https://github.com/justmendes/mustacheme/issues/new) if you found some of
 them bugs.
